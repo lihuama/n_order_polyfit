@@ -1,0 +1,10 @@
+MODULE nopf_mod
+    INTERFACE
+    MODULE SUBROUTINE nopf(x,y,c,n)
+    REAL, ALLOCATABLE, DIMENSION(:) :: x,y,c
+    INTEGER :: n
+    INTENT(IN) :: x,y,n
+    INTENT(OUT) :: c
+    END SUBROUTINE
+    END INTERFACE
+END MODULE
