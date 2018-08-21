@@ -58,7 +58,7 @@ IMPLICIT NONE
 102             FORMAT(3(F10.4),F10.4)
                 DEALLOCATE(yf)
             ELSE
-                WRITE (*,*) '感谢您的使用，下次再见！'
+                CALL cat1()
                 EXIT loop
             END IF
             
