@@ -12,14 +12,14 @@ IMPLICIT NONE
     READ (*,'(A20)') filename
     
     OPEN( UNIT=12, FILE=filename, STATUS='OLD', ACTION='READ', IOSTAT=istat, IOMSG=msg)
-    IF( istat==0 ) THEN
+    openif: IF( istat==0 ) THEN
         i = 1
         DO
             READ (12,*,IOSTAT=istat) xt(i),yt(i)
             IF(istat/=0) EXIT
             i = i+1
         END DO
-!        IF(i>MAX_SIZE) WRITE (*,*) 'data overflowed'
+!       IF(i>MAX_SIZE) WRITE (*,*) 'data overflowed'
         i = i-1
         x = xt(1:i)
         y = yt(1:i)
@@ -31,32 +31,40 @@ IMPLICIT NONE
             k = k+1
         END DO
         
-        WRITE (*,*) 'Enter the order n:'
-        READ (*,*) n
-
-        CALL nopf(x,y,c,n)
-        DO k=1,n+1
-            WRITE (*,100) 'c(',k-1,')',c(k)
-        END DO
-100     FORMAT(/,2X,A2,I0,A,3X,F8.3)   
+        loop: DO
+            WRITE (*,*) 'Enter the order n:(if you want to exit, enter 0)'
+            READ (*,*) n
         
-        ALLOCATE(yf(i))
-        yf = 0.
-        DO j=1,i
-            DO k=1,n+1
-                yf(j) = yf(j)+c(k)*x(j)**(k-1)
-            END DO
-        END DO
+            IF( n>0 ) THEN
+                CALL nopf(x,y,c,n)
+                DO k=1,n+1
+                    WRITE (*,100) 'c(',k-1,')',c(k)
+                END DO
+100             FORMAT(/,2X,A2,I0,A,3X,F8.3)   
         
-        WRITE (*,101) 'x','y','yf','delta y'
-101     FORMAT(/,3(4X,A2,4X),1X,A8)
-        DO j=1,i
-            WRITE (*,102) x(j),y(j),yf(j),ABS(y(j)-yf(j))
-        END DO
-102     FORMAT(3(F10.4),F10.4)
+                ALLOCATE(yf(i))
+                yf = 0.
+                DO j=1,i
+                    DO k=1,n+1
+                        yf(j) = yf(j)+c(k)*x(j)**(k-1)
+                    END DO
+                END DO
         
+                WRITE (*,101) 'x','y','yf','delta y'
+101             FORMAT(/,3(4X,A2,4X),1X,A8)
+                DO j=1,i
+                    WRITE (*,102) x(j),y(j),yf(j),ABS(y(j)-yf(j))
+                END DO
+102             FORMAT(3(F10.4),F10.4)
+                DEALLOCATE(yf)
+            ELSE
+                WRITE (*,*) '感谢您的使用，下次再见！'
+                EXIT loop
+            END IF
+            
+        END DO loop
     ELSE
         WRITE (*,*) TRIM(msg)
-    END IF
+    END IF openif
     
 END PROGRAM

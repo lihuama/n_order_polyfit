@@ -27,9 +27,9 @@
 		<Filter Name="Header Files" Filter="fi;fd;h;inc"/>
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
-		<File RelativePath=".\test.f90"/>
 		<File RelativePath=".\mod_nopf.f90"/>
-		<File RelativePath="..\..\gauss_jordan\gauss_jordan\mod_simul.f90"/>
+		<File RelativePath="F:\intel visual fortran\gauss_jordan\gauss_jordan\mod_simul.f90"/>
 		<File RelativePath=".\submod_nopf.f90"/>
-		<File RelativePath="..\..\gauss_jordan\gauss_jordan\submod_simul.f90"/></Filter></Files>
+		<File RelativePath="F:\intel visual fortran\gauss_jordan\gauss_jordan\submod_simul.f90"/>
+		<File RelativePath=".\test.f90"/></Filter></Files>
 	<Globals/></VisualStudioProject>
